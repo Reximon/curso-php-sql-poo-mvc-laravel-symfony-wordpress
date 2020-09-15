@@ -21,3 +21,5 @@ ALTER TABLE usuarios_renom ADD CONSTRAINT uq_email UNIQUE(email);
 -- Borrar una columna -- 
 
 ALTER TABLE usuarios_renom DROP website;
+
+ALTER TABLE clientes CHANGE cuidad ciudad varchar(100);
