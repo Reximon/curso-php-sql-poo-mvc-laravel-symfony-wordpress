@@ -11,7 +11,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: "Rubik";
+    font-family: "Rubik", 'Helvetica';
 }
 .clearfix{
     clear: both;
@@ -19,6 +19,9 @@
 }
 body{
     background: url('../img/cubes.png') #f4f4f4;
+}
+.negrita{
+    font-weight: bolder;
 }
 .alerta{
     padding: 5px;
@@ -136,6 +139,8 @@ input[type="button"], input[type="submit"], .boton{
     padding: 3px;
 }
 .boton{
+    color: white !important;
+    text-align: center;
     width: 130px;
 }
 .boton-verde{
@@ -223,5 +228,5 @@ input[type="text"], input[type="email"], input[type="password"]{
     height: auto;
     padding: 20px;
     text-align: center;
-    margin-top: 5.8%;
+    margin-top: 8%;
 }
