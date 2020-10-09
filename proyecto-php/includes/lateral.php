@@ -1,13 +1,21 @@
 <aside id="sidebar">
+    <div id="buscador" class="bloque">
+                <h3>Buscar</h3>
+                <form action="buscar.php" method="POST">
+                    <input type="text" name="busqueda">
+
+                    <input type="submit" value="Buscar">
+                </form>
+            </div>
 
     <?php if(isset($_SESSION['usuario'])): ?>
     <div id="usuario-logeado" class="bloque">
-        <h3>Welcome, <?= $_SESSION['usuario']['nombre']. ' '.$_SESSION['usuario']['apellidos']; ?></h3>
+        <h3>Bienvenido, <?= $_SESSION['usuario']['nombre']. ' '.$_SESSION['usuario']['apellidos']; ?></h3>
         <!-- Botones -->
         <a href="crear-entradas.php" class="boton boton-verde">Crear entradas</a>
         <a href="crearcategoria.php" class="boton">Crear categoría</a>
-        <a href="cerrar.php" class="boton boton-naranja">Editar perfil</a>
-        <a href="cerrar.php" class="boton boton-rojo">Cerrar sesión</a>
+        <a href="mis-datos.php" class="boton boton-naranja">Editar perfil</a>
+        <a href="helpers/cerrar.php" class="boton boton-rojo">Cerrar sesión</a>
     </div>
     <?php endif; ?>
     <?php if(!isset($_SESSION['usuario'])): ?>
@@ -19,7 +27,7 @@
             <?= $_SESSION['error_login']?>
         </div>
     <?php endif; ?>
-                <form action="login.php" method="POST">
+                <form action="helpers/login.php" method="POST">
                     <label for="email">Email:</label>
                     <input type="email" name="email">
 
@@ -44,7 +52,7 @@
                         <?= $_SESSION['errores'] ['general']; ?>
                     </div>
                     <?php endif; ?>
-                <form action="registro.php" method="POST">
+                <form action="helpers/registro.php" method="POST">
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre">
 

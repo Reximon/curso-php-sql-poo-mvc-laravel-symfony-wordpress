@@ -1,24 +1,39 @@
 <?php require_once 'includes/redirecion.php' ?>
-<?php require_once 'includes/cabecera.php' ?>
+<?php require_once 'includes/conexion.php' ?>
+<?php require_once 'includes/helpers.php'?>
+<?php 
+    $entrada_actual = conseguirEntrada($db, $_GET['id']);
+
+    if(!isset($entrada_actual['id'])){
+        header("Location: index.php");
+    }
+?>
+<?php require_once 'includes/cabecera.php'?>
+<!-- Sidebar  -->
 <?php require_once 'includes/lateral.php' ?>
+
 <div id="principal">
-    <h1>Crear entradas</h1>  
-    <p>Añade nuevas entradas al blog para que los usuarios puedan leerlas y disfrutar nuestro contenido.</p>
+    <h1>Editar entrada</h1>  
+    <p>Edita tu entrada <span class="negrita">"<?=$entrada_actual['titulo']?>"</span>.</p>
     <br>
-        <form action="helpers/guardar-entradas.php" method="POST">
+        <form action="helpers/guardar-entradas.php?editar=<?=$entrada_actual['id']?>" method="POST">
+
             <label for="titulo">Título:</label>
-            <input type="text" name="titulo">
+            <input type = "text" name = "titulo" value = "<?=$entrada_actual['titulo']?>">
             <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'titulo') : ''; ?>
+
             <label for="descripcion">Descripción:</label>
-            <textarea name="descripcion"></textarea>
+            <textarea name="descripcion"><?=$entrada_actual['descripcion']?></textarea>
                 <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'descripcion') : ''; ?>
+
             <label for="categoria">Categoría:</label>
-            <select name="categoria">
+            <select name = "categoria">
                 <?php $categorias = conseguirCategorias($db); 
                     if(!empty($categorias)):
                         while($categoria = mysqli_fetch_assoc($categorias)) :
                 ?>
-                    <option value="<?=$categoria['id']?>">
+                    <option value="<?=$categoria['id']?>" <?=($categoria['id'] == $entrada_actual['categoria_id']) ? 'selected="selected"' : '' ?>
+                    >
                             <?=$categoria['nombre']?>
                     </option>
                 <?php   endwhile;

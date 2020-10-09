@@ -1,6 +1,6 @@
 <?php
 // Iniciar la sesión y la conexión a BBDD
-require_once 'includes/conexion.php';
+require_once '../includes/conexion.php';
 // Recojer los datos del formulario
 if(isset($_POST)){
 
@@ -50,4 +50,4 @@ if(isset($_POST)){
 
 // Redirigir al index.php 
 
-header('Location: index.php');
+header('Location: ../index.php');
