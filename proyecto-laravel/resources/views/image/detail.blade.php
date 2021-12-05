@@ -7,7 +7,7 @@
                 @include('includes.message')
 
 
-                <div class="card pub_image">
+                <div class="card pub_image pub_image_detail">
                     <div class="card-header">
 
                         @if ($image->user->image)
@@ -25,13 +25,17 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="image-container">
+                        <div class="image-container image-detail">
                             <img src="{{ route('image.file', ['filename' => $image->image_path]) }}" alt="">
                         </div>
                         <div class="description">
 
                             <span class="nickname">
                                 {{ '@' . $image->user->nick }}
+                            </span>
+
+                            <span class="nickname date">
+                                {{ ' | ' . FormatTime::LongTimeFilter($image->created_at) }}
                             </span>
 
                             <p>
@@ -41,9 +45,46 @@
                         <div class="likes">
                             <img src="{{ asset('img/corazon-grey.png') }}" alt="">
                         </div>
+                        <div class="clearfix"></div>
                         <div class="comments">
-                            <a href="#" class="btn btn-sm btn-success btn-comments">Comentarios
-                                ({{ count($image->comments) }})</a>
+                            <h2>
+                                Comentarios ({{ count($image->comments) }})
+                            </h2>
+                            <hr>
+                            <form method="POST" action="{{ route('comment.save') }}">
+                                @csrf
+
+                                <input type="hidden" name="image_id" value="{{ $image->id }}">
+                                <p>
+                                    <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content"></textarea>
+                                    @if ($errors->has('content'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('content') }}</strong>
+                                        </span>
+                                    @endif
+                                </p>
+
+                                <button type="submit" class="btn btn-success">Enviar</button>
+                            </form>
+                            <hr>
+                            @foreach ($image->comments  as $comment)
+
+                            <div class="comment">
+
+                                    <span class="nickname">
+                                        {{ '@' . $comment->user->nick }}
+                                    </span>
+        
+                                    <span class="nickname date">
+                                        {{ ' | ' . FormatTime::LongTimeFilter($comment->created_at) }}
+                                    </span>
+        
+                                    <p>
+                                        {{ $comment->content }}
+                                    </p>
+                            </div>
+                                
+                            @endforeach
                         </div>
                     </div>
                 </div>
